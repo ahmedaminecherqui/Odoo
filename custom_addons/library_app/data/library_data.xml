@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categories -->
+        <record id="category_fiction" model="library.category">
+            <field name="name">Fiction</field>
+        </record>
+        <record id="category_science" model="library.category">
+            <field name="name">Sciences</field>
+        </record>
+        
+        <!-- Sub-categories -->
+        <record id="category_scifi" model="library.category">
+            <field name="name">Science-Fiction</field>
+            <field name="parent_id" ref="category_fiction"/>
+        </record>
+        <record id="category_computer_science" model="library.category">
+            <field name="name">Informatique</field>
+            <field name="parent_id" ref="category_science"/>
+        </record>
+    </data>
+</odoo>

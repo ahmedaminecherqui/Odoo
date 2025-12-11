@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top level menu -->
+    <menuitem id="menu_library_root" name="Bibliothèque" sequence="10" web_icon="library_app,static/description/icon.png"/>
+
+    <!-- Categories -->
+    <menuitem id="menu_library_books" name="Livres" parent="menu_library_root" sequence="10"/>
+    <menuitem id="menu_library_members" name="Membres" parent="menu_library_root" sequence="20"/>
+    <menuitem id="menu_library_loans" name="Emprunts" parent="menu_library_root" sequence="30"/>
+    <menuitem id="menu_library_config" name="Configuration" parent="menu_library_root" sequence="40"/>
+</odoo>
