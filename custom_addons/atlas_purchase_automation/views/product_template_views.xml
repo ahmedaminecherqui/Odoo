@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_only_form_view_inherit_purchase_automation" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.purchase.automation</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="purchase_alert_threshold" string="Seuil d'alerte (Stock)"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
