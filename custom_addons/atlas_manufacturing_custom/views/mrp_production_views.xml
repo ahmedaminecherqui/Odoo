@@ -1,0 +1,13 @@
+
+<odoo>
+    <record id="mrp_production_form_view_atlas" model="ir.ui.view">
+        <field name="name">mrp.production.form.atlas</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="atlas_real_cost" widget="monetary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
