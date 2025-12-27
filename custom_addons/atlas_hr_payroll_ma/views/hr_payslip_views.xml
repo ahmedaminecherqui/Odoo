@@ -1,0 +1,68 @@
+
+<odoo>
+    <record id="view_atlas_hr_payslip_list" model="ir.ui.view">
+        <field name="name">atlas.hr.payslip.list</field>
+        <field name="model">atlas.hr.payslip</field>
+        <field name="arch" type="xml">
+            <list string="Bulletins de Paie">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="gross_salary"/>
+                <field name="net_salary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_atlas_hr_payslip_form" model="ir.ui.view">
+        <field name="name">atlas.hr.payslip.form</field>
+        <field name="model">atlas.hr.payslip</field>
+        <field name="arch" type="xml">
+            <form string="Bulletin de Paie">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="base_salary"/>
+                            <field name="other_taxable"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Calculs Paie">
+                            <group>
+                                <group string="Cotisations">
+                                    <field name="cnss_amount"/>
+                                    <field name="amo_amount"/>
+                                </group>
+                                <group string="Fiscalité &amp; Net">
+                                    <field name="taxable_income"/>
+                                    <field name="ir_amount"/>
+                                    <field name="net_salary"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_atlas_hr_payslip" model="ir.actions.act_window">
+        <field name="name">Bulletins de Paie</field>
+        <field name="res_model">atlas.hr.payslip</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_atlas_payroll_root" name="Paie Maroc" web_icon="hr,static/description/icon.png" sequence="20"/>
+    <menuitem id="menu_atlas_hr_payslip" name="Bulletins" parent="menu_atlas_payroll_root" action="action_atlas_hr_payslip"/>
+</odoo>
