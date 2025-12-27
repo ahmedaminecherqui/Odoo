@@ -1,0 +1,63 @@
+<odoo>
+    <!-- Report Action -->
+    <record id="action_report_sales_performance" model="ir.actions.report">
+        <field name="name">Rapport Performance Ventes (Jalon 8)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">atlas_bi_dashboard.report_sales_performance</field>
+        <field name="report_file">atlas_bi_dashboard.report_sales_performance</field>
+        <field name="print_report_name">'Performance - %s' % object.name</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Template -->
+    <template id="report_sales_performance">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Rapport de Performance Ventes</h2>
+                    <p>Ce rapport récapitule les commandes sélectionnées pour le Jalon 8.</p>
+                    
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Référence</th>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Vendeur</th>
+                                <th class="text-end">Montant HT</th>
+                                <th class="text-end">Montant TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <tr>
+                                    <td><span t-field="o.name"/></td>
+                                    <td><span t-field="o.date_order" t-options='{"widget": "date"}'/></td>
+                                    <td><span t-field="o.partner_id.name"/></td>
+                                    <td><span t-field="o.user_id.name"/></td>
+                                    <td class="text-end"><span t-field="o.amount_untaxed"/></td>
+                                    <td class="text-end"><span t-field="o.amount_total"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr class="border-black o_subtotal">
+                                <td colspan="4"><strong>Total</strong></td>
+                                <td class="text-end">
+                                    <strong t-esc="sum(docs.mapped('amount_untaxed'))" 
+                                            t-options='{"widget": "monetary", "display_currency": docs[0].currency_id}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="sum(docs.mapped('amount_total'))" 
+                                            t-options='{"widget": "monetary", "display_currency": docs[0].currency_id}'/>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

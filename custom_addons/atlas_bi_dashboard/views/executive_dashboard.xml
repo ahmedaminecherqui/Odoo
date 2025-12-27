@@ -1,0 +1,55 @@
+<odoo>
+    <!-- ACTION 1: Turnover Graph (CA Global) -->
+    <record id="action_bi_turnover_graph" model="ir.actions.act_window">
+        <field name="name">Chiffre d'Affaires Global</field>
+        <field name="res_model">sale.report</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="sale.view_order_product_graph"/>
+        <field name="domain">[('state', 'in', ['sale', 'done'])]</field>
+        <field name="context">{'group_by': ['date:month'], 'measure': 'price_total'}</field>
+    </record>
+
+    <!-- ACTION 2: Top Products (Pivot) -->
+    <record id="action_bi_top_products" model="ir.actions.act_window">
+        <field name="name">Top 5 Produits</field>
+        <field name="res_model">sale.report</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="sale.view_order_product_pivot"/>
+        <field name="domain">[('state', 'in', ['sale', 'done'])]</field>
+        <field name="context">{'group_by': ['product_id'], 'measure': 'price_total'}</field>
+        <field name="limit">5</field>
+    </record>
+
+    <!-- BOARD VIEW -->
+    <record id="board_bi_executive_view" model="ir.ui.view">
+        <field name="name">bi.executive.board</field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de Bord DG">
+                <board style="2-1">
+                    <column>
+                        <action name="%(action_bi_turnover_graph)d" string="Chiffre d'Affaires (Mensuel)"/>
+                    </column>
+                    <column>
+                        <action name="%(action_bi_top_products)d" string="Top Produits par CA"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION TO OPEN BOARD -->
+    <record id="open_board_bi_executive" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord DG</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="board_bi_executive_view"/>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_bi_executive_view"
+              parent="menu_bi_executive"
+              action="open_board_bi_executive"
+              sequence="1"/>
+</odoo>

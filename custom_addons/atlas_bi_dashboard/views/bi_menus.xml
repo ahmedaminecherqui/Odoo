@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Top Level Menu -->
+    <menuitem id="menu_atlas_bi_root"
+              name="Business Intelligence"
+              web_icon="atlas_bi_dashboard,static/description/icon.png"
+              sequence="10"/>
+
+    <!-- Sub Menus -->
+    <menuitem id="menu_bi_executive"
+              name="Direction Générale"
+              parent="menu_atlas_bi_root"
+              sequence="10"/>
+
+    <menuitem id="menu_bi_sales"
+              name="Commercial"
+              parent="menu_atlas_bi_root"
+              sequence="20"/>
+
+    <menuitem id="menu_bi_logistics"
+              name="Logistique"
+              parent="menu_atlas_bi_root"
+              sequence="30"/>
+
+    <menuitem id="menu_bi_finance"
+              name="Finance"
+              parent="menu_atlas_bi_root"
+              sequence="40"/>
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+    <!-- ACTION 1: Customer Invoice Analysis (Pivot) -->
+    <record id="action_bi_invoice_analysis" model="ir.actions.act_window">
+        <field name="name">Analyse Facturation Client</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">pivot</field>
+        <field name="domain">[('move_type', 'in', ['out_invoice', 'out_refund']), ('state', '=', 'posted')]</field>
+        <field name="context">{'group_by': ['invoice_date:month', 'partner_id'], 'measure': 'amount_total'}</field>
+    </record>
+
+    <!-- ACTION 2: Vendor Bill Analysis (Graph) -->
+    <record id="action_bi_bill_analysis" model="ir.actions.act_window">
+        <field name="name">Analyse Factures Fournisseurs</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">graph</field>
+        <field name="domain">[('move_type', 'in', ['in_invoice', 'in_refund']), ('state', '=', 'posted')]</field>
+        <field name="context">{'group_by': ['invoice_date:month'], 'measure': 'amount_total'}</field>
+    </record>
+
+    <!-- BOARD VIEW -->
+    <record id="board_bi_finance_view" model="ir.ui.view">
+        <field name="name">bi.finance.board</field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de Bord Finance">
+                <board style="2-1">
+                    <column>
+                        <action name="%(action_bi_invoice_analysis)d" string="Revenus par Client"/>
+                    </column>
+                    <column>
+                        <action name="%(action_bi_bill_analysis)d" string="Dépenses Fournisseurs"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION TO OPEN BOARD -->
+    <record id="open_board_bi_finance" model="ir.actions.act_window">
+        <field name="name">Tableau de Bord Finance</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="board_bi_finance_view"/>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_bi_finance_view"
+              parent="menu_bi_finance"
+              action="open_board_bi_finance"
+              sequence="1"/>
+</odoo>
